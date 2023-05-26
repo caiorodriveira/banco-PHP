@@ -27,7 +27,7 @@ $pessoas = $conn->query("SELECT * FROM pessoa")->fetchAll(PDO::FETCH_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
     <?php include('./includes/cdnsCss.php') ?>
-    <title>Bank $ - Pessoas</title>
+    <title>Bank - Pessoas</title>
 </head>
 
 <body>
