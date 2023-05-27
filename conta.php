@@ -3,16 +3,20 @@ require_once('./private/connection.php');
 require_once('./private/contaClass.php');
 $error = "";
 $pessoas = $conn->query("SELECT * FROM pessoa")->fetchAll(PDO::FETCH_ASSOC);
-$contas = $conn->query("SELECT * FROM conta")->fetchAll(PDO::FETCH_ASSOC);
+
 if(!empty($_POST['pessoa']) && !empty($_POST['saldo']) && !empty($_POST['numero'])){
     $conta = new Conta ($_POST['pessoa'], $_POST['saldo'], $_POST['numero']);
     $exists = $conn->query("SELECT * FROM conta where numero = $conta->numero")->fetchAll(PDO::FETCH_ASSOC);
         if (sizeof($exists) > 0) {
             $error = "Conta já cadastrada";
         } else {
-            $conn->query("INSERT INTO conta (id_conta, saldo, numero, id_pessoa) values(DEFAULT, $conta->saldo, $conta->numero, $conta->pessoa)");
+            $conn->query("INSERT INTO conta (id_conta, saldo, numero, id_pessoa) values(DEFAULT, $conta->saldo, $conta->numero, $conta->pessoa)") or die($error = "eror");
         }
 }
+
+$contas = $conn->query("SELECT p.nome, p.cpf, c.saldo,  c.numero FROM conta AS c 
+JOIN pessoa AS p ON c.id_pessoa = p.id_pessoa")->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -69,6 +73,7 @@ if(!empty($_POST['pessoa']) && !empty($_POST['saldo']) && !empty($_POST['numero'
                 <thead>
                     <tr>
                         <th>Pessoa</th>
+                        <th>CPF</th>
                         <th>Saldo</th>
                         <th>Número da Conta</th>
                         <th></th>
@@ -78,7 +83,8 @@ if(!empty($_POST['pessoa']) && !empty($_POST['saldo']) && !empty($_POST['numero'
                 <tbody>
                 <?php foreach ($contas as $c) : ?>
                         <tr>
-                            <td><?= $c['id_pessoa'] ?></td>
+                            <td><?= $c['nome'] ?></td>
+                            <td><?= $c['cpf'] ?></td>
                             <td><?= $c['saldo'] ?></td>
                             <td><?= $c['numero'] ?></td>
                             <td><span class="material-symbols-outlined text-danger">delete</span></td>
