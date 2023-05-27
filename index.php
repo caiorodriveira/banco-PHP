@@ -18,7 +18,7 @@
             <div class="operations mt-3 mb-3 d-flex justify-content-around">
                 <a type="button" href="./pessoa.php" class="btn btn-primary">Cadastrar Pessoa</a>
                 <a type="button" href="./conta.php" class="btn btn-primary">Criar Conta</a>
-                <a type="button" href="./transacao.php" class="btn btn-primary">Realizar transação</a>
+                <a type="button" href="./operacao.php" class="btn btn-primary">Realizar Operação</a>
             </div>
         </div>
     </main>
