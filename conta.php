@@ -41,7 +41,7 @@ JOIN pessoa AS p ON c.id_pessoa = p.id_pessoa")->fetchAll(PDO::FETCH_ASSOC);
                 <div class="form-group">
                     <label for="pessoa">Pessoa: </label>
                     <select id="pessoa" name="pessoa" class="form-select" required>
-                        <option value="">---SELECIONE A PESSOA---</option>
+                        <option value="" disabled selected>---SELECIONE A PESSOA---</option>
                         <?php foreach($pessoas as $pessoa):?>
                             <option value="<?=$pessoa['id_pessoa']?>"><?= $pessoa['nome'] . ' - ' .$pessoa['cpf']?></option>
                         <?php endforeach?>
