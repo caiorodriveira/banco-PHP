@@ -18,5 +18,10 @@
         id_pessoa INT NOT NULL,
         CONSTRAINT fk_pessoa FOREIGN KEY(id_pessoa) REFERENCES pessoa(id_pessoa));
         
-        INSERT INTO pessoa VALUES(DEFAULT, 'Caio Rodrigo' , 52377178880, 'caio@gmail.com');")
+        INSERT INTO pessoa VALUES(DEFAULT, 'Caio Rodrigo' , 52377178880, 'caio@gmail.com');
+        
+        create TABLE IF NOT EXISTS extrato(
+        id_extrato INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+        tipo_operacao char(1) NOT NULL,
+        valor INT NOT NULL);");
 ?>

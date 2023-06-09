@@ -8,6 +8,7 @@ $showConta = false;
 $showOperacao = false;
 $contas = "";
 $dados = "";
+$extrato = "";
 
 if(empty($_POST["pessoa"]) && empty($_POST["conta"]) && empty($_POST["tipo"]) && empty($_POST["valor"])){
     $showPessoa = true;
@@ -28,6 +29,7 @@ else if(!empty($_POST["pessoa"])){
 }
 
 if($showOperacao){
+    $extrato = $conn->query("SELECT * FROM extrato")->fetchAll(PDO::FETCH_ASSOC);
     
 }
 ?>
