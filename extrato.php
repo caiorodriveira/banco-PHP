@@ -35,7 +35,7 @@ if (empty($_POST["pessoa"]) && empty($_POST["conta"]) && empty($_POST["tipo"]) &
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
     <?php include('./includes/cdnsCss.php') ?>
-    <title>Bank - Transação</title>
+    <title>Bank - Extrato</title>
 </head>
 
 <body>
