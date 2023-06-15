@@ -41,7 +41,7 @@ if (empty($_POST["pessoa"]) && empty($_POST["conta"]) && empty($_POST["tipo"]) &
 <body>
     <main class="container-fluid p-3">
         <div class="new-account w-50 shadow p-3 align-self-center d-flex flex-column mt-5">
-            <a href="index.php" type="button" class="btn btn-secondary align-self-baseline">Voltar</a>
+            <a href="bank.php" type="button" class="btn btn-secondary align-self-baseline">Voltar</a>
             <h2 class="text-center flex-center"> Extrato </h2>
             <hr>
             <form action="" method="POST" class="w-70 d-flex flex-column align-self-center">

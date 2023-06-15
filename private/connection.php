@@ -1,11 +1,11 @@
-<?php 
-    define('HOST', 'localhost');
-    define('DBNAME', 'db_financias');
-    define('USERNAME', 'root');
-    define('PASSWORD', 'root');
-    $conn = new PDO("mysql:host=".HOST.";dbname=".DBNAME.";charset=utf8", USERNAME, PASSWORD);
+<?php
+define('HOST', 'localhost');
+define('DBNAME', 'db_financias');
+define('USERNAME', 'root');
+define('PASSWORD', 'root');
+$conn = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME . ";charset=utf8", USERNAME, PASSWORD);
 
-    $conn->query("CREATE TABLE IF NOT EXISTS pessoa(
+$conn->query("CREATE TABLE IF NOT EXISTS pessoa(
         id_pessoa INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
         nome varchar(100) NOT NULL,
         cpf varchar(11) NOT NULL unique,
@@ -26,5 +26,12 @@
         valor INT NOT NULL,
         id_conta int not null,
         foreign key(id_conta) references conta(id_conta),
-        foreign key(id_pessoa) references pessoa(id_pessoa));");
-?>
+        foreign key(id_pessoa) references pessoa(id_pessoa));
+        
+        create table if not exists usuario (
+        id_usuaio int not null primary key auto_increment,
+        login varchar(60) not null,
+        senha varchar(60) not null);
+
+        insert into usuario values(default, 'caiooliveira', 'caio123');
+        ");

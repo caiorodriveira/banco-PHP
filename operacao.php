@@ -20,12 +20,12 @@ else if(!empty($_POST["pessoa"])){
     $pessoa =  $conn->query("SELECT * FROM pessoa where id_pessoa =" . $_POST["pessoa"])->fetch(PDO::FETCH_ASSOC);
 } else if(!empty($_POST["conta"]) && !empty($_POST["tipo"]) && !empty($_POST["valor"])){
     $showConta = false;
-    // $dados = $conn->query("SELECT p.id_pessoa, p.nome, p.cpf, c.numero, c.id_conta from conta c join pessoa p on c.id_pessoa = p.id_pessoa WHERE c.id_conta = " . $_POST["conta"])->fetch(PDO::FETCH_ASSOC);
-    // $extrato = $conn->query("SELECT * FROM extrato where id_conta = " . $dados["id_conta"] )->fetchAll(PDO::FETCH_ASSOC);
+
     $tipo = $_POST["tipo"];
     $valor = $_POST["valor"];
     $idConta = $_POST["conta"];
-    $conn->query("INSERT INTO extrato (id_extrato, tipo_operacao, valor, id_conta) values (default, '$tipo', '$valor', '$idConta')");
+    $operacao = new Operacao($idConta, $tipo, $valor);
+    $conn->query("INSERT INTO extrato (id_extrato, tipo_operacao, valor, id_conta) values (default, '$operacao->operacao', '$operacao->valor', '$operacao->conta')");
     switch ($tipo){
         case 'saque':
             $conn->query("UPDATE conta SET saldo = saldo - $valor where id_conta = '$idConta'");
@@ -53,7 +53,7 @@ else if(!empty($_POST["pessoa"])){
 <body>
     <main class="container-fluid p-3">
         <div class="new-account w-50 shadow p-3 align-self-center d-flex flex-column mt-5">
-                <a href="index.php" type="button" class="btn btn-secondary align-self-baseline">Voltar</a>
+                <a href="bank.php" type="button" class="btn btn-secondary align-self-baseline">Voltar</a>
                 <h2 class="text-center flex-center"> Realizar Operação </h2>
             <hr>
             <form action="" method="POST" class="w-70 d-flex flex-column align-self-center">
