@@ -110,60 +110,7 @@ else if(!empty($_POST["pessoa"])){
                
                 
             </form>
-
-            <?php //if(sizeof($contas) > 0):?>
-                <!-- <div class="form-group">
-                    <label for="conta">Conta: </label>
-                    <select id="conta" name="conta" class="form-select" required>
-                        <option value="" disabled selected>---SELECIONE O NUMERO DA CONTA---</option>
-                        <?php foreach($contas as $conta):?>
-                            <option value="<?=$conta['id_conta']?>"><?= $conta['numero']?></option>
-                        <?php endforeach?>
-                    </select>
-                </div>
-                <?php //endif?>
-                <div class="form-group">
-                    <label for="tipo">Tipo da Operação</label>
-                    <select name="tipo" id="tipo" class="form-select" required>
-                        <option value="" disabled selected>--- SELECIONE A OPERAÇÃO ---</option>
-                        <option value="saque">Saque</option>
-                        <option value="deposito">Depósito</option>
-                    </select>
-                </div>
-                <?php if ($error != "") : ?>
-                    <div class="alert alert-danger mt-3">
-                        <span><?= $error ?></span>
-                    </div>
-                <?php endif ?>
-                <div class="action mt-3 d-flex flex-column align-self-center">
-                    <button type="submit" class="btn btn-primary">Salvar</button>
-                </div> -->
         </div>
-
-<!-- 
-        <div class="table-accounts w-50 p-3 shadow align-self-center d-flex flex-column mt-5">
-            <h2 class="text-center">Extrato</h2>
-            <h4 class="text-center"><strong>Saldo atual: </strong>[saldo]</h4>
-            <hr>
-            <table class="table table-striped w-80 align-self-center">
-                <thead>
-                    <tr>
-                        <th>Tipo de operação</th>
-                        <th>Valor</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php //foreach($extrato as $e) :?>
-                        <tr>
-                    
-                        </tr>
-                    <?php //endforeach ?>
-                </tbody>
-            </table>
-        </div> -->
-  
 
     </main>
 
