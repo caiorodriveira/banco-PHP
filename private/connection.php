@@ -2,7 +2,7 @@
     define('HOST', 'localhost');
     define('DBNAME', 'db_financias');
     define('USERNAME', 'root');
-    define('PASSWORD', '');
+    define('PASSWORD', 'root');
     $conn = new PDO("mysql:host=".HOST.";dbname=".DBNAME.";charset=utf8", USERNAME, PASSWORD);
 
     $conn->query("CREATE TABLE IF NOT EXISTS pessoa(
@@ -23,5 +23,8 @@
         create TABLE IF NOT EXISTS extrato(
         id_extrato INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
         tipo_operacao char(1) NOT NULL,
-        valor INT NOT NULL);");
+        valor INT NOT NULL,
+        id_conta int not null,
+        foreign key(id_conta) references conta(id_conta),
+        foreign key(id_pessoa) references pessoa(id_pessoa));");
 ?>

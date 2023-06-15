@@ -19,6 +19,7 @@
                 <a type="button" href="./pessoa.php" class="btn btn-primary">Cadastrar Pessoa</a>
                 <a type="button" href="./conta.php" class="btn btn-primary">Criar Conta</a>
                 <a type="button" href="./operacao.php" class="btn btn-primary">Realizar Operação</a>
+                <a type="button" href="./extrato.php" class="btn btn-primary">Ver extrato</a>
             </div>
         </div>
     </main>

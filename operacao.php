@@ -5,10 +5,10 @@ $pessoas = $conn->query("SELECT DISTINCT p.* FROM pessoa p JOIN conta c ON p.id_
 $error = "";
 $showPessoa = false;
 $showConta = false;
-$showOperacao = false;
 $contas = "";
 $dados = "";
 $extrato = "";
+$pessoa = "";
 
 if(empty($_POST["pessoa"]) && empty($_POST["conta"]) && empty($_POST["tipo"]) && empty($_POST["valor"])){
     $showPessoa = true;
@@ -17,20 +17,25 @@ else if(!empty($_POST["pessoa"])){
     $showPessoa = false;
     $showConta = true;
     $contas = $conn->query("SELECT * FROM conta where id_pessoa =" . $_POST["pessoa"])->fetchAll(PDO::FETCH_ASSOC);
-} else if(!empty($_POST["conta"])){
-    $showPessoa = false;
+    $pessoa =  $conn->query("SELECT * FROM pessoa where id_pessoa =" . $_POST["pessoa"])->fetch(PDO::FETCH_ASSOC);
+} else if(!empty($_POST["conta"]) && !empty($_POST["tipo"]) && !empty($_POST["valor"])){
     $showConta = false;
-    $showOperacao = true;
-    $dados = $conn->query("SELECT p.nome, p.cpf, c.numero from conta c join pessoa p on c.id_pessoa = p.id_pessoa WHERE c.id_conta = " . $_POST["conta"])->fetch(PDO::FETCH_ASSOC);
-} else if(!empty($_POST["tipo"]) && !empty($_POST["valor"])){
-    $dadosOp = $conn->query("SELECT p.id_pessoa, c.id_conta from conta c join pessoa p on c.id_pessoa = p.id_pessoa WHERE c.id_conta = " . $_POST["contaOp"])->fetch(PDO::FETCH_ASSOC);
-    $op = new Operacao($dadosOP["id_pessoa"], $dadosOp["id_conta"], $_POST["tipo"], $_POST["valor"]);
-    echo print_r($op);
-}
+    // $dados = $conn->query("SELECT p.id_pessoa, p.nome, p.cpf, c.numero, c.id_conta from conta c join pessoa p on c.id_pessoa = p.id_pessoa WHERE c.id_conta = " . $_POST["conta"])->fetch(PDO::FETCH_ASSOC);
+    // $extrato = $conn->query("SELECT * FROM extrato where id_conta = " . $dados["id_conta"] )->fetchAll(PDO::FETCH_ASSOC);
+    $tipo = $_POST["tipo"];
+    $valor = $_POST["valor"];
+    $idConta = $_POST["conta"];
+    $conn->query("INSERT INTO extrato (id_extrato, tipo_operacao, valor, id_conta) values (default, '$tipo', '$valor', '$idConta')");
+    switch ($tipo){
+        case 'saque':
+            $conn->query("UPDATE conta SET saldo = saldo - $valor where id_conta = '$idConta'");
+            break;
+        case 'deposito':
+            $conn->query("UPDATE conta SET saldo = saldo + $valor where id_conta = '$idConta'");
+            break;
+    }
+    $showPessoa = true;
 
-if($showOperacao){
-    $extrato = $conn->query("SELECT * FROM extrato")->fetchAll(PDO::FETCH_ASSOC);
-    
 }
 ?>
 <!DOCTYPE html>
@@ -70,6 +75,14 @@ if($showOperacao){
                 <?php if($showConta):?>
                 <h4 class="text-center">Selecione a conta</h4>
                 <div class="form-group">
+                    <label for="pessoa">Pessoa: </label>
+                    <input type="text" id="pessoa" name="pessoa" class="form-control" value="<?=$pessoa['nome']?>" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="cpf">CPF: </label>
+                    <input type="text" id="cpf" name="cpf" class="form-control" value="<?=$pessoa['cpf']?>" disabled>
+                </div>
+                <div class="form-group">
                     <label for="conta">Conta: </label>
                     <select id="conta" name="conta" class="form-select" required>
                         <option value="" disabled selected>---SELECIONE O NUMERO DA CONTA---</option>
@@ -77,25 +90,6 @@ if($showOperacao){
                             <option value="<?=$conta['id_conta']?>">Cc: <?= $conta['numero']?></option>
                         <?php endforeach?>
                     </select>
-                </div>
-                <div class="action d-flex flex-column align-self-center mt-3">
-                    <button type="submit" class="btn btn-warning">Selecionar operação</button>
-                </div>
-                <?php endif?>
-                <?php if($showOperacao):?>
-                <h4 class="text-center">Selecione a operação</h4>
-                <div class="form-group">
-                    <label for="pessoa">Pessoa: </label>
-                    <input type="text" id="pessoa" name="pessoa" class="form-control" value="<?= $dados['nome']?>" disabled>
-                </div>
-                <div class="form-group">
-                    <label for="cpf">CPF: </label>
-                    <input type="text" id="cpf" name="cpf" class="form-control" value="<?= $dados['cpf']?>" disabled>
-                </div>
-                <!-- AJUSTAR PARA APARECER COM SHOW CONTA E REMOVER SHOW OPERAÇÃO -->
-                <div class="form-group">
-                    <label for="conta">Numero da conta: </label>
-                    <input type="number" id="contaOp" name="contaOp" class="form-control" value="<?= $dados['numero']?>" disabled>
                 </div>
                 <div class="form-group">
                     <label for="tipo">Tipo da Operação</label>
@@ -113,6 +107,7 @@ if($showOperacao){
                     <button type="submit" class="btn btn-warning">Realizar operação</button>
                 </div>
                 <?php endif?>
+               
                 
             </form>
 
@@ -145,6 +140,7 @@ if($showOperacao){
                 </div> -->
         </div>
 
+<!-- 
         <div class="table-accounts w-50 p-3 shadow align-self-center d-flex flex-column mt-5">
             <h2 class="text-center">Extrato</h2>
             <h4 class="text-center"><strong>Saldo atual: </strong>[saldo]</h4>
@@ -159,11 +155,15 @@ if($showOperacao){
                     </tr>
                 </thead>
                 <tbody>
-
+                    <?php //foreach($extrato as $e) :?>
+                        <tr>
+                    
+                        </tr>
+                    <?php //endforeach ?>
                 </tbody>
             </table>
-        </div>
-
+        </div> -->
+  
 
     </main>
 
