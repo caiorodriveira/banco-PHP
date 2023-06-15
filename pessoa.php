@@ -69,8 +69,6 @@ $pessoas = $conn->query("SELECT * FROM pessoa")->fetchAll(PDO::FETCH_ASSOC);
                         <th>Nome</th>
                         <th>CPF</th>
                         <th>Email</th>
-                        <th></th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -79,8 +77,6 @@ $pessoas = $conn->query("SELECT * FROM pessoa")->fetchAll(PDO::FETCH_ASSOC);
                             <td><?= $p['nome'] ?></td>
                             <td><?= $p['cpf'] ?></td>
                             <td><?= $p['email'] ?></td>
-                            <td><span class="material-symbols-outlined text-danger">delete</span></td>
-                            <td><span class="material-symbols-outlined text-primary">edit</span></td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>

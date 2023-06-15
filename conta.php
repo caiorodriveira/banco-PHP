@@ -76,8 +76,6 @@ JOIN pessoa AS p ON c.id_pessoa = p.id_pessoa")->fetchAll(PDO::FETCH_ASSOC);
                         <th>CPF</th>
                         <th>Saldo</th>
                         <th>Número da Conta</th>
-                        <th></th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -87,8 +85,6 @@ JOIN pessoa AS p ON c.id_pessoa = p.id_pessoa")->fetchAll(PDO::FETCH_ASSOC);
                             <td><?= $c['cpf'] ?></td>
                             <td><?= $c['saldo'] ?></td>
                             <td><?= $c['numero'] ?></td>
-                            <td><span class="material-symbols-outlined text-danger">delete</span></td>
-                            <td><span class="material-symbols-outlined text-primary">edit</span></td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>
