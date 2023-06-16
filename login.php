@@ -69,7 +69,7 @@ if(!empty($_POST['login']) && !empty($_POST['senha'])){
                     </div>
                     <?php endif?>
                     <div class="action d-flex justify-content-center mt-3">
-                        <button type="submit" class="btn btn-primary">Login</button>
+                        <button type="submit" class="btn bg-dark text-light">Login</button>
                     </div>
                 </form>
             </div>
