@@ -1,5 +1,8 @@
 <?php
-
+session_start();
+if (!isset($_SESSION["login"])) {
+    header('Location: login.php');
+}
 require_once('./private/connection.php');
 require_once('./private/pessoaClass.php');
 $error = "";
@@ -12,8 +15,6 @@ if (!empty($_POST['nome']) && !empty($_POST['cpf']) && !empty($_POST['email'])) 
         $conn->query("INSERT INTO pessoa (id_pessoa,nome,cpf,email) values(DEFAULT, '$pessoa->nome', '$pessoa->cpf', '$pessoa->email')");
     }
 }
-//fazer outras funções do crud
-
 $pessoas = $conn->query("SELECT * FROM pessoa")->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
@@ -33,7 +34,7 @@ $pessoas = $conn->query("SELECT * FROM pessoa")->fetchAll(PDO::FETCH_ASSOC);
 <body>
     <main class="container-fluid p-3">
         <div class="new-people w-50 shadow p-3 align-self-center d-flex flex-column mt-5">
-                <a href="bank.php" type="button" class="btn btn-secondary align-self-baseline">Voltar</a>
+                <a href="index.php" type="button" class="btn btn-secondary align-self-baseline">Voltar</a>
                 <h2 class="text-center flex-center"> Cadastrar Pessoa </h2>
             <hr>
             <form action="" method="POST" class="w-70 d-flex flex-column align-self-center">

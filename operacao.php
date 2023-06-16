@@ -1,4 +1,8 @@
 <?php 
+session_start();
+if (!isset($_SESSION["login"])) {
+    header('Location: login.php');
+}
 require_once('private/connection.php');
 require_once('private/operacaoClass.php');
 $pessoas = $conn->query("SELECT DISTINCT p.* FROM pessoa p JOIN conta c ON p.id_pessoa = c.id_pessoa")->fetchAll(PDO::FETCH_ASSOC);
@@ -53,7 +57,7 @@ else if(!empty($_POST["pessoa"])){
 <body>
     <main class="container-fluid p-3">
         <div class="new-account w-50 shadow p-3 align-self-center d-flex flex-column mt-5">
-                <a href="bank.php" type="button" class="btn btn-secondary align-self-baseline">Voltar</a>
+                <a href="index.php" type="button" class="btn btn-secondary align-self-baseline">Voltar</a>
                 <h2 class="text-center flex-center"> Realizar Operação </h2>
             <hr>
             <form action="" method="POST" class="w-70 d-flex flex-column align-self-center">

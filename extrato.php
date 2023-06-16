@@ -1,4 +1,8 @@
 <?php
+session_start();
+if (!isset($_SESSION["login"])) {
+    header('Location: login.php');
+}
 require_once('private/connection.php');
 require_once('private/operacaoClass.php');
 $pessoas = $conn->query("SELECT DISTINCT p.* FROM pessoa p JOIN conta c ON p.id_pessoa = c.id_pessoa")->fetchAll(PDO::FETCH_ASSOC);
@@ -41,7 +45,7 @@ if (empty($_POST["pessoa"]) && empty($_POST["conta"]) && empty($_POST["tipo"]) &
 <body>
     <main class="container-fluid p-3">
         <div class="new-account w-50 shadow p-3 align-self-center d-flex flex-column mt-5">
-            <a href="bank.php" type="button" class="btn btn-secondary align-self-baseline">Voltar</a>
+            <a href="index.php" type="button" class="btn btn-secondary align-self-baseline">Voltar</a>
             <h2 class="text-center flex-center"> Extrato </h2>
             <hr>
             <form action="" method="POST" class="w-70 d-flex flex-column align-self-center">
@@ -108,8 +112,8 @@ if (empty($_POST["pessoa"]) && empty($_POST["conta"]) && empty($_POST["tipo"]) &
                         <tbody>
                             <?php foreach ($extrato as $e) : ?>
                                 <tr>
-                                    <td><?= $e["tipo_operacao"] ?></td>
-                                    <td><?= $e["valor"] ?></td>
+                                    <td><?= strtoupper($e["tipo_operacao"]) ?></td>
+                                    <td><?= strtoupper($e["valor"]) ?></td>
                                 </tr>
                             <?php endforeach ?>
                         </tbody>
